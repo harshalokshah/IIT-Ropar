@@ -1,0 +1,54 @@
+# encoding: utf-8
+# 2019 R1
+SetScriptVersion(Version="19.3.111")
+template1 = GetTemplate(
+    TemplateName="Static Structural",
+    Solver="ANSYS")
+system1 = template1.CreateSystem()
+engineeringData1 = system1.GetContainer(ComponentName="Engineering Data")
+matl1 = engineeringData1.CreateMaterial(Name="Steel")
+matlProp1 = matl1.CreateProperty(
+    Name="Elasticity",
+    Behavior="Isotropic",
+    Qualifiers={"Definition": "", "Behavior": "Isotropic"})
+matlProp1.SetData(
+    SheetName="Elasticity",
+    SheetQualifiers={"Definition": "", "Behavior": "Isotropic", "Derive from": "Young's Modulus and Poisson's Ratio"},
+    Index=-1,
+    Variables=["Young's Modulus"],
+    Values=[["230000000 [Pa]"]])
+matlProp1.SetData(
+    SheetName="Elasticity",
+    SheetQualifiers={"Definition": "", "Behavior": "Isotropic", "Derive from": "Young's Modulus and Poisson's Ratio"},
+    Variables=["Poisson's Ratio"],
+    Values=[["0.3"]])
+geometry1 = system1.GetContainer(ComponentName="Geometry")
+geometry1.SetFile(FilePath="C:/Users/HARSH/OneDrive/Desktop/IIT ROPAR/Skills/Ansys/Prac4/model.IGS")
+modelComponent1 = system1.GetComponent(Name="Model")
+modelComponent1.Refresh()
+model1 = system1.GetContainer(ComponentName="Model")
+model1.Edit()
+model1.Exit()
+material1 = engineeringData1.GetMaterial(Name="Structural Steel")
+material1.SetSuppression(Suppressed=True)
+modelComponent1.Refresh()
+setupComponent1 = system1.GetComponent(Name="Setup")
+setupComponent1.Refresh()
+solutionComponent1 = system1.GetComponent(Name="Solution")
+solutionComponent1.Refresh()
+resultsComponent1 = system1.GetComponent(Name="Results")
+resultsComponent1.Refresh()
+results1 = system1.GetContainer(ComponentName="Results")
+results1.Edit()
+model1.Exit()
+model1.Edit()
+model1.Exit()
+matlProp1.SetData(
+    SheetName="Elasticity",
+    SheetQualifiers={"Definition": "", "Behavior": "Isotropic", "Derive from": "Young's Modulus and Poisson's Ratio"},
+    Variables=["Young's Modulus"],
+    Values=[["230000000000 [Pa]"]])
+modelComponent1.Refresh()
+model1.Edit()
+model1.Exit()
+Save(Overwrite=True)

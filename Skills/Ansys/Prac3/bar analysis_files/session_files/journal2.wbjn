@@ -1,0 +1,23 @@
+# encoding: utf-8
+# 2019 R1
+SetScriptVersion(Version="19.3.111")
+system1 = GetSystem(Name="SYS")
+engineeringData1 = system1.GetContainer(ComponentName="Engineering Data")
+material1 = engineeringData1.GetMaterial(Name="Structural Steel")
+material1.DisplayName = "Aluminium"
+material1.DisplayName = "Aluminium Alloy"
+modelComponent1 = system1.GetComponent(Name="Model")
+modelComponent1.Refresh()
+model1 = system1.GetContainer(ComponentName="Model")
+model1.Edit()
+model1.Exit()
+modelComponent1.Refresh()
+setupComponent1 = system1.GetComponent(Name="Setup")
+setupComponent1.Refresh()
+setup1 = system1.GetContainer(ComponentName="Setup")
+setup1.Edit()
+model1.Exit()
+results1 = system1.GetContainer(ComponentName="Results")
+results1.Edit()
+model1.Exit()
+Save(Overwrite=True)
